@@ -14,4 +14,4 @@ date: 2022-09-23
 
 Before 2022 ends, I'm giving myself a challenge to re-learn or teach myself a data science concept each day and document it done for future self. 
 
-`2022-09-23` SVD (singular value decomposition)
+`2022-09-23` [SVD (singular value decomposition)](https://achchg.github.io/blog/2022/svd/)
