@@ -18,4 +18,4 @@ Before 2022 ends, I'm giving myself a challenge to re-learn or teach myself a da
 
 `2022-09-24` [word2vec](https://achchg.github.io/blog/2022/word2vec/)
 
-`2022-09-24` [word2vec](https://achchg.github.io/blog/2022/word2vec-2/)
+`2022-09-25` [word2vec code example](https://achchg.github.io/blog/2022/word2vec_2/)
