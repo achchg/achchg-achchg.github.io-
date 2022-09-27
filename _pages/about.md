@@ -25,4 +25,4 @@ I'm experienced in leading data science teams and projects in:
 -  selecting patient cohort with ICD-10 code logics and machine learning
 -  scaling software development (front + backend) of forecasting models on a cloud platform
 
-During graduate studies, I was an environmental health researcher and biostatistician at Harvard focused on environmental pesiticide exposure and risk simulation with statiscal models. My doctoral [dissertation](https://dash.harvard.edu/bitstream/handle/1/37945631/CHANG-DISSERTATION-2018.pdf?sequence=3) was about linking sub-lethal pesticides exposure to honeybee colony collaspe disorder (CCD) and human health.  
+During graduate studies, I was an environmental health researcher and biostatistician at Harvard focused on environmental pesiticide exposure and health risk simulation with statistical models. My doctoral [dissertation](https://dash.harvard.edu/bitstream/handle/1/37945631/CHANG-DISSERTATION-2018.pdf?sequence=3) was about linking sub-lethal pesticides exposure to honeybee colony collaspe disorder (CCD) and human health.  
