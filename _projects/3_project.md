@@ -20,4 +20,4 @@ Before 2022 ends, I'm giving myself a challenge to re-learn or teach myself a da
 
 `2022-09-25` [word2vec code example](https://achchg.github.io/blog/2022/word2vec_2/)
 
-`2022-09-27` [word2vec code example](https://achchg.github.io/blog/2022/MCsimulation/)
+`2022-09-27` [Monte Carlo simulation to estimate $$\pi$$](https://achchg.github.io/blog/2022/MCsimulation/)
