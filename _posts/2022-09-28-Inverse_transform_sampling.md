@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Inverse transform sampling
-date: 2022-09-28
+date: 2022-09-27
 description: Day 6
 tags: review
 categories: probability
@@ -55,32 +55,47 @@ $$F(r) = \frac{r^2}{R^2} = u$$
 
 $$r^2 = R^2 u$$
 
+As a result:
+- We will sample r with the following algorithm:
+
 $$r = F^{-1}(u) = R\sqrt{u}$$
+
+- And we will uniformly sample $$\theta$$ as:
+
+$$\theta = 2\pi u_1$$
+
+where 
+
+$$u_1 \sim U(0, 1)$$
+
+- Transformation from polar to Cartesian coordinate:
+  
+$$ x = r\cos(\theta)$$
+
+$$ y = r\sin(\theta)$$
 
 {% highlight python linenos %} 
 R = 1
 N = 1000
 
-def estimate_pi(R, N):
+def random_circle_sample(R, N):
     """
-    Estimate pi from simulation from circle
+    Random unifromly sample N samples from a circle
     N: Number of simulation/samples
     R: radius of the circle
     """
     
-    x = np.random.uniform(-R, R, N)
-    y = np.random.uniform(-R, R, N)
-    in_circle = x**2 + y**2
-
-    circle_count = 0
-    for i in range(N):
-        if in_circle[i] < R**2:
-            circle_count += 1
-
-    pi_hat = 4 * circle_count / N
+    u = np.random.uniform(0, 1, N)
+    theta = 2 * math.pi * np.random.uniform(0, 1, N)
+    r = R * np.sqrt(u)
     
-    return pi_hat
+    y = r*np.sin(theta)
+    x = r*np.cos(theta)
+    
+    plt.figure(figsize=(8, 8), dpi=80)
+    plt.scatter(x, y)
+    plt.show()
 {% endhighlight %}
 
-Example notebook with above example can be found [here](https://github.com/achchg/achchg.github.io/blob/master/jupyternb/2022-09-27-MCsimulation.ipynb).
+Example notebook with above example can be found [here](https://github.com/achchg/achchg.github.io/blob/master/jupyternb/2022-09-28-Inverse_transform_sampling.ipynb).
 
