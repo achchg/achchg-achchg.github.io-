@@ -4,7 +4,7 @@ title: Monte Carlo simulation
 date: 2022-09-27
 description: Day 5
 tags: review
-categories: mc_simulation
+categories: probability, mc_simulation
 ---
 A [question](https://users.aber.ac.uk/jcf12/teaching/montecarlo/) that I read today: "How to estimate $$\pi$$?"
 
@@ -25,7 +25,7 @@ $$
 
 Therefore, on the Cartesian coordinate, if we can sample N samples of (x, y) pairs uniformly from the square and to keep track of the common samples that also fell into the circle (threshold: $$x^2 + y^2 < R^2$$), we can estimate $$\pi$$ as:
 
-$$\hat{\pi} = 4 \times \frac{\text{# of common samples also appears in the circle}}{\text{# of samples in the square}}$$.
+$$\hat{\pi} = 4 \times \frac{\text{# of common samples also appears in the circle}}{\text{# of samples in the square}}$$. Here is part of my sample codes:
 
 {% highlight python linenos %} 
 R = 1
