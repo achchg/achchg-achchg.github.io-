@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Inverse transform sampling
-date: 2022-09-27
+date: 2022-09-28
 description: Day 6
 tags: review
 categories: probability
@@ -13,7 +13,7 @@ In order to dirctly sample from a circle without using a square and Monte Carlo 
 #### How to come up with CDF?
 As explained in the above stackoverflow, to uniformly sample from a circle we cannot solely sample $$r$$ uniformly from $$(0, R)$$ and $$\theta$$ from $$(0, 2\pi)$$. This is because as r is away from the center $$(0, 0)$$, the area being summarized given an incremental increase in $$r$$ (e.g. $$d$$) also get larger, meaning that we'd need more samples to be randomly chosen, as the r increases from d to 2d, to achieve uniformly distributed sampling. 
 
-If we consider a "thick" line in representing the increase in circumference when the random radius increases from $$d$$ to $$2d$$, the increase in the length of the circumference from $$2 \pi d$$ to $$4\pi d$$ suggests that the instaneous increase in the probability is linearly to increase in random variable $$r$$ as d (a.k.a. $$f(r) \propto r $$)
+If we consider the increase in circumference when the random radius increases from $$d$$ to $$2d$$, the increase in the length of the circumference from $$2 \pi d$$ to $$4\pi d$$ suggests that the instaneous increase in the probability is linearly to increase in random variable $$r$$ as d (a.k.a. $$f(r) \propto r $$)
 
 With the property of probability:
 
