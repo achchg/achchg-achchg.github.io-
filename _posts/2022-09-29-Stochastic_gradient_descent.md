@@ -6,7 +6,7 @@ description: Day 7
 tags: review
 categories: probability, gradient
 ---
-Getting into reviewing NLP in deep learning, I'm reviewing the gradient descent and stochastic gradient descent again, which are common machine learning parameter optimization methods well covered by packages these days and we normally use them hand-waving. Here, I'll use logistic regression as my example:
+I'm reviewing the gradient descent and stochastic gradient descent again with NLP in deep learning, which are common machine learning parameter optimization methods well covered by packages these days and we normally use them hand-waving. Here, I'll use logistic regression as my example:
 
 #### (Stochastic) Gradient descent
 Our often goal to develop a ML model is to make better prediction (i.e. minimize the cost of a model, $$J(\theta)$$), where $$\theta$$ is a single parameter of our model here. In gradient descent, we'd:
