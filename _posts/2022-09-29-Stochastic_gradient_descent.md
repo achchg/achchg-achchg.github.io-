@@ -39,7 +39,7 @@ $$
 $$
 \begin{align*}
 \text{logit}(p) & = \alpha + \beta x_i \\
-p & = \frac{\exp(\alpha + \beta x_i)}{1 + \exp(\alpha + \beta x_i)}
+p_i & = \frac{\exp(\alpha + \beta x_i)}{1 + \exp(\alpha + \beta x_i)}
 \end{align*}
 $$
 
@@ -47,24 +47,24 @@ Therefore, we can derive the log-likelihood function:
 
 $$
 \begin{align*}
-\ell(y) & = \Sigma_{i=1}^n y_i\log(p) + (1-y_i)\log(1-p)\\
-& = n\log(1-p) + \Sigma_{i=1}^n y_i\log(\frac{p}{1-p})\\
-& = -n\log(1 + \exp(\alpha + \beta x_i)) + \Sigma_{i=1}^n y_i(\alpha + \beta x_i)\\
+\ell(y) & = \Sigma_{i=1}^n y_i\log(p_i) + (1-y_i)\log(1-p_i)\\
+& = \Sigma_{i=1}^n \log(1-p_i) + y_i\log(\frac{p_i}{1-p_i})\\
+& = \Sigma_{i=1}^n -\log(1 + \exp(\alpha + \beta x_i)) + y_i(\alpha + \beta x_i)\\
 \end{align*}
 $$
 
 If we use the average log-likelihood as the cost function (J) would be:
 
 $$
-J = -\log(1 + \exp(\alpha + \beta x_i)) + \frac{1}{n}\Sigma_{i=1}^n y_i(\alpha + \beta x_i)
+J = \frac{1}{n}\Sigma_{i=1}^n y_i(\alpha + \beta x_i) -\log(1 + \exp(\alpha + \beta x_i))
 $$
 
 And the gradients of $$\alpha$$ and $$\beta$$ are:
 
 $$
 \begin{align*}
-\frac{\partial}{\partial \alpha} & = -\frac{\exp(\alpha + \beta x_i)}{1 + \exp(\alpha + \beta x_i)} + \Sigma_{i=1}^n y_i = \Sigma_{i=1}^n(y_i-np) = \Sigma_{i=1}^n(y_i-\hat{y_i})\\
-\frac{\partial}{\partial \beta} & = -\frac{\exp(\alpha + \beta x_i) x_i}{1 + \exp(\alpha + \beta x_i)} + \Sigma_{i=1}^n y_ix_i = \Sigma_{i=1}^n x_i(y_i-np) = \Sigma_{i=1}^n x_i(y_i-\hat{y_i})
+\frac{\partial}{\partial \alpha} & = \frac{1}{n}\Sigma_{i=1}^n y_i -\frac{\exp(\alpha + \beta x_i)}{1 + \exp(\alpha + \beta x_i)} = \frac{1}{n}\Sigma_{i=1}^n(y_i-p_i) = \frac{1}{n}\Sigma_{i=1}^n(y_i-\hat{y_i})\\
+\frac{\partial}{\partial \beta} & = \frac{1}{n}\Sigma_{i=1}^n y_ix_i -\frac{\exp(\alpha + \beta x_i) x_i}{1 + \exp(\alpha + \beta x_i)}= \frac{1}{n}\Sigma_{i=1}^n x_i(y_i-p_i) = \frac{1}{n}\Sigma_{i=1}^n x_i(y_i-\hat{y_i})
 \end{align*}
 $$
 
@@ -73,8 +73,8 @@ With gradient descent, we'd optimize $$\alpha$$ and $$\beta$$ with the following
 
 $$
 \begin{align*}
-\alpha_j & := \alpha_j - \eta_1 \Sigma_{i=1}^n(y_i-\hat{y_i})\\
-\beta_j & := \beta_j - \eta_2 \Sigma_{i=1}^nx_i(y_i-\hat{y_i})
+\alpha_j & := \alpha_j - \eta_1 \frac{1}{n}\Sigma_{i=1}^n(y_i-\hat{y_i})\\
+\beta_j & := \beta_j - \eta_2 \frac{1}{n}\Sigma_{i=1}^nx_i(y_i-\hat{y_i})
 \end{align*}
 $$
 
