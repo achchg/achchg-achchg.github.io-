@@ -53,18 +53,18 @@ $$
 \end{align*}
 $$
 
-If we use the average log-likelihood as the cost function (J) would be:
+If we use the negative average log-likelihood (cross entropy) as the cost function (J) would be:
 
 $$
-J = \frac{1}{n}\Sigma_{i=1}^n y_i(\alpha + \beta x_i) -\log(1 + \exp(\alpha + \beta x_i))
+J = -\frac{1}{n}\Sigma_{i=1}^n y_i(\alpha + \beta x_i) + \log(1 + \exp(\alpha + \beta x_i))
 $$
 
 And the gradients of $$\alpha$$ and $$\beta$$ are:
 
 $$
 \begin{align*}
-\frac{\partial}{\partial \alpha} & = \frac{1}{n}\Sigma_{i=1}^n y_i -\frac{\exp(\alpha + \beta x_i)}{1 + \exp(\alpha + \beta x_i)} = \frac{1}{n}\Sigma_{i=1}^n(y_i-p_i) = \frac{1}{n}\Sigma_{i=1}^n(y_i-\hat{y_i})\\
-\frac{\partial}{\partial \beta} & = \frac{1}{n}\Sigma_{i=1}^n y_ix_i -\frac{\exp(\alpha + \beta x_i) x_i}{1 + \exp(\alpha + \beta x_i)}= \frac{1}{n}\Sigma_{i=1}^n x_i(y_i-p_i) = \frac{1}{n}\Sigma_{i=1}^n x_i(y_i-\hat{y_i})
+\frac{\partial}{\partial \alpha} & = -\frac{1}{n}\Sigma_{i=1}^n y_i +\frac{\exp(\alpha + \beta x_i)}{1 + \exp(\alpha + \beta x_i)} = \frac{1}{n}\Sigma_{i=1}^n(p_i-y_i) = \frac{1}{n}\Sigma_{i=1}^n(\hat{y_i}-y_i)\\
+\frac{\partial}{\partial \beta} & = -\frac{1}{n}\Sigma_{i=1}^n y_ix_i +\frac{\exp(\alpha + \beta x_i) x_i}{1 + \exp(\alpha + \beta x_i)}= \frac{1}{n}\Sigma_{i=1}^n x_i(p_i-y_i) = \frac{1}{n}\Sigma_{i=1}^n x_i(\hat{y_i}-y_i)
 \end{align*}
 $$
 
@@ -73,8 +73,8 @@ With gradient descent, we'd optimize $$\alpha$$ and $$\beta$$ with the following
 
 $$
 \begin{align*}
-\alpha_j & := \alpha_j - \eta_1 \frac{1}{n}\Sigma_{i=1}^n(y_i-\hat{y_i})\\
-\beta_j & := \beta_j - \eta_2 \frac{1}{n}\Sigma_{i=1}^nx_i(y_i-\hat{y_i})
+\alpha_j & := \alpha_j - \eta_1 \frac{1}{n}\Sigma_{i=1}^n(\hat{y_i}-y_i)\\
+\beta_j & := \beta_j - \eta_2 \frac{1}{n}\Sigma_{i=1}^nx_i(\hat{y_i}-y_i)
 \end{align*}
 $$
 
