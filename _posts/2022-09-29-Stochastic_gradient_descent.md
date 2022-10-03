@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Stochastic gradient descent
-date: 2022-09-29 / 2022-9-30
+date: 2022-09-29
 description: Day 7 - 8
 tags: review
 categories: probability, gradient

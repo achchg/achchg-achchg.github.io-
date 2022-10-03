@@ -26,3 +26,4 @@ Before 2022 ends, I'm giving myself a challenge to re-learn or teach myself a da
 
 `2022-09-29` [Stochastic gradient descent](http://localhost:4000/blog/2022/Stochastic_gradient_descent/)
 
+`2022-09-30` [Stochastic code example](https://github.com/achchg/achchg.github.io/blob/master/jupyternb/2022-09-29-Stochastic_gradient_descent.ipynb)
