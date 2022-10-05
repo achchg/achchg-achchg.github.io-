@@ -17,15 +17,6 @@ where $$\alpha$$ is the learning rate and $$\nabla_\theta J(\theta)$$ represent 
 
 Adam optimization, in addition, takes 2 additional steps beyond SGD:
 
-##### Method of moment
-[Method of moment](https://en.wikipedia.org/wiki/Method_of_moments_(statistics)) in statistics implies the following:
-
-The $$k^{th}$$ moment of a random variable X with its pdf, $$f(x)$$ can be expressed as:
-
-$$E(X^k) = \int_X x^k f(x) dx$$
-
-Therefore, the first moment of X is $$E(X)$$, which is the mean of the distribution; and the second moment of X is $$E(X^2)$$, which is the sum of mean squared and the variance ($$\text{Var}(X) = E(X^2) - E(X)^2$$).
-
 ##### Update biased first order moment estimate
 
 $$
@@ -47,6 +38,16 @@ v & := \beta_2 v + (1 − \beta_2)(\nabla_\theta J(\theta) \odot \nabla_\theta J
 $$
 
 As $$m$$ is divided by the $$\sqrt{v}$$ (the gradient of Adam), the gradients that have smaller gradient magnitude ($$v$$) will get larger updates. As $$v$$ is derived from squared of $$\nabla_{\theta} J(\theta)$$, $$v$$ is usually associated with smaller gradient. This might help further smoothing out the gradient descent from the **momentum** step, by giving larger weights to the smaller gradients when the SGD update does not guarantee continuous descending in the gradients.
+
+
+##### Note: Method of moment
+[Method of moment](https://en.wikipedia.org/wiki/Method_of_moments_(statistics)) in statistics implies the following:
+
+The $$k^{th}$$ moment of a random variable X with its pdf, $$f(x)$$ can be expressed as:
+
+$$E(X^k) = \int_X x^k f(x) dx$$
+
+Therefore, the first moment of X is $$E(X)$$, which is the mean of the distribution; and the second moment of X is $$E(X^2)$$, which is the sum of mean squared and the variance ($$\text{Var}(X) = E(X^2) - E(X)^2$$).
 <!-- 
 Example notebook with above example can be found [here](https://github.com/achchg/achchg.github.io/blob/master/jupyternb/2022-09-29-Stochastic_gradient_descent.ipynb). -->
 
