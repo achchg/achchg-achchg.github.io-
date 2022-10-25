@@ -36,6 +36,6 @@ Before 2022 ends, I'm giving myself a challenge to re-learn or teach myself a da
 
 `2022-10-14` [Gradient boosting](https://achchg.github.io/blog/2022/Gradient_boosting/)
 
-`2022-10-24` [Attention](https://achchg.github.io/blog/2022/Attention/)
+<!-- `2022-10-24` [Attention](https://achchg.github.io/blog/2022/Attention/) -->
 
 `2022-10-25` [SQL](https://achchg.github.io/blog/2022/SQL/)
