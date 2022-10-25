@@ -4,7 +4,7 @@ title: Stochastic gradient descent
 date: 2022-09-29
 description: Day 7 - 8
 tags: review
-categories: probability, gradient
+categories: probability gradient
 ---
 I'm reviewing the gradient descent and stochastic gradient descent again with NLP in deep learning, which are common machine learning parameter optimization methods well covered by packages these days and we normally use them hand-waving. Here, I'll use logistic regression as my example:
 

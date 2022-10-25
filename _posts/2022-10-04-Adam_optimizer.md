@@ -1,10 +1,10 @@
 ---
 layout: post
 title: Adam (adaptive moment estimation) optimizer
-date: 2022-09-29
+date: 2022-10-04
 description: Day 12
 tags: review
-categories: optimization, gradient
+categories: optimization gradient
 ---
 Reviewing [week 3 assignment](https://web.stanford.edu/class/cs224n/assignments/a3_handout.pdf) of NLP with deep learning brought Adam optimization algorithm back to my attention. Here I'd summarize what I did in my homework 3 for my future reference:
 

@@ -4,7 +4,7 @@ title: Monte Carlo simulation
 date: 2022-09-27
 description: Day 5
 tags: review
-categories: probability, mc_simulation
+categories: probability mc_simulation
 ---
 A [question](https://users.aber.ac.uk/jcf12/teaching/montecarlo/) that I read today: "How to estimate $$\pi$$?"
 
