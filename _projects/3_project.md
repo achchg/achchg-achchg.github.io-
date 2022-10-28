@@ -30,7 +30,7 @@ Before 2022 ends, I'm giving myself a challenge to re-learn or teach myself a da
 
 `2022-10-04` [Adam optimizer](https://achchg.github.io/blog/2022/Adam_optimizer/)
 
-<!-- `2022-10-07` [RNN](https://achchg.github.io/blog/2022/ResNets/) -->
+`2022-10-07` [RNN](https://achchg.github.io/blog/2022/ResNets/)
 
 `2022-10-10` [ResNet](https://achchg.github.io/blog/2022/ResNets/)
 
