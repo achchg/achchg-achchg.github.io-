@@ -17,7 +17,7 @@ On the contrary, the decoder network (language B) of the Attention model was tra
 
 
 <div class="row">
-    <div class="col-sm mt-3 mt-md-0">
+    <div class="col-md-3 offset-md-3">
         {% include figure.html path="assets/img/attention.png" title="example image" %}
     </div>
 </div>
