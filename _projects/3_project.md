@@ -32,7 +32,7 @@ Before 2022 ends, I'm giving myself a challenge to re-learn or teach myself a da
 
 `2022-10-07` [RNN](https://achchg.github.io/blog/2022/RNN/)
 
-`2022-10-10` [ResNet](https://achchg.github.io/blog/2022/ResNets/)
+`2022-10-10` [ResNet](https://achchg.github.io/blog/2022/ResNet/)
 
 `2022-10-14` [Gradient boosting](https://achchg.github.io/blog/2022/Gradient_boosting/)
 
