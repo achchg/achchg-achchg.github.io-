@@ -39,3 +39,5 @@ Before 2022 ends, I'm giving myself a challenge to re-learn or teach myself a da
 `2022-10-24` [Attention](https://achchg.github.io/blog/2022/Attention/)
 
 `2022-10-25` [SQL](https://achchg.github.io/blog/2022/SQL/)
+
+`2022-11-15` [N-Beats](https://achchg.github.io/blog/2022/NBeats/)
