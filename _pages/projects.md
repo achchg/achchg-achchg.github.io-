@@ -2,7 +2,7 @@
 layout: page
 title: projects
 permalink: /projects/
-description: A collection of my past work and research
+description: A collection of my selected past work and research
 nav: true
 display_categories: [learning, toy]
 horizontal: false

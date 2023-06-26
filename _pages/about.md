@@ -15,7 +15,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true  # includes social icons at the bottom of the page
 ---
 
-Hello! I am Chi, a hands-on emerging data science leader with 10+ years data experience in academia and industry. My quantitative strengths lie in statistics and machine learning (including experimentation methodologies, value metric designs, productionalization of machine learning models on realtime A/B testing platform, uplift modeling, bayesian statistical modeling, etc.). Most recently, I have been expanding my tech specs into natural language processing and deep learning. 
+Hello! I am Chi, a hands-on data science leader with 10+ years data experience in academia and industry. My quantitative strengths lie in statistics and machine learning (including experimentation methodologies, value metric designs, productionalization of machine learning models on realtime A/B testing platform, uplift modeling, bayesian statistical modeling, etc.). Most recently, I have been expanding my tech specs into natural language processing and deep learning. 
 
 
 I'm experienced in leading data science teams and projects in:
