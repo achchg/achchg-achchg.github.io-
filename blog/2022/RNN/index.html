@@ -2,16 +2,16 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=https://achchg.github.io/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Chi-Hsuan  Chang | Page not found</title>
+    <title>Chi-Hsuan  Chang | RNN/LSTM</title>
     <meta name="author" content="Chi-Hsuan  Chang" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="Day 15" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://achchg.github.io/404.html">
+    <link rel="canonical" href="https://achchg.github.io/blog/2022/RNN/">
     
     <!-- Dark Mode -->
     
@@ -71,7 +71,7 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
+              <li class="nav-item active">
                 <a class="nav-link" href="/blog/">blog</a>
               </li>
 
@@ -98,20 +98,128 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="https://achchg.github.io/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">RNN/LSTM</h1>
+    <p class="post-meta">October 7, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/review">
+          <i class="fas fa-hashtag fa-sm"></i> review</a>  
+          
+        ·  
+        <a href="/blog/category/dl">
+          <i class="fas fa-tag fa-sm"></i> dl</a>  
+          <a href="/blog/category/sequence">
+          <i class="fas fa-tag fa-sm"></i> sequence</a>  
+          
 
-          </article>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p>My notes from reviewing RNN model in NLP, following the flow of <a href="https://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes05-LM_RNN.pdf" target="_blank" rel="noopener noreferrer">RNN</a> and <a href="https://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes06-NMT_seq2seq_attention.pdf" target="_blank" rel="noopener noreferrer">Seq2seq</a> lecture notes.</p>
+
+<h4 id="rnn-architecture">RNN architecture</h4>
+
+<p>I’ll use the below figure cited from CS224n lecture 5-6 notes of RNN to summarize RNN:</p>
+
+<p>“The elements (e.g. words) were fed into the algorithm one after one along (e.g. the \(t^{th}\) element of the input sequence, \(w_{t}\)) with the hidden output layer (\(h_{t-1}\)) from the previous timestamp (\(t-1\)) in predicting the most likely next element of the output sequence (\(y_{t}\))”</p>
+
+\[\begin{align*}
+h_t &amp; = \sigma(W^{(hh)}h_{t−1} + W^{(hx)}x_{t})\\
+y_t &amp; = \text{softmax}(W^{(S)}h_t)
+\end{align*}\]
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    <source media="(max-width: 480px)" srcset="/assets/img/rnn-480.webp"></source>
+    <source media="(max-width: 800px)" srcset="/assets/img/rnn-800.webp"></source>
+    <source media="(max-width: 1400px)" srcset="/assets/img/rnn-1400.webp"></source>
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/rnn.png" title="example image">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<ul>
+  <li>Parameters to be solved: \(h_t\), \(W^{(hh)}\), \(W^{(hx)}\) and \(W^{(S)}\)</li>
+  <li>With the softmax activation function, the common loss function for RNN is the cross-entropy loss (as derived previously in the <a href="https://achchg.github.io/blog/2022/Stochastic_gradient_descent/">SGD post with logistic regression</a>):</li>
+</ul>
+
+\[\begin{align*}
+J^{(t)}(\theta) &amp;= −\Sigma_{j=1}^{|V|}y_{t,j} * log(\hat{y}_{t,j}) \\
+J(\theta) &amp;= \frac{1}{T}\Sigma_{t=1}^TJ^{(t)}(\theta)
+\end{align*}\]
+
+<ul>
+  <li>As the sequence is getting longer, there could be vanishing/exploding gradient problem. As we’d solve for the gradient for \(J^{(t)}(\theta)\) with chain rule with respect to multiple layers of t. The gradient can become very small or large. One way to solve the exploding gradient problem is to setup a threshold for the gradient, as the gradient exceeds the threshold, adjust the gradient to a smaller level.</li>
+  <li>Evaluation method of RNN model: <strong>Perplexity!</strong> The lower the perplexity, the better the model.</li>
+</ul>
+
+\[\begin{align*}
+\text{perplexity} = \exp({J})
+\end{align*}\]
+
+<h4 id="long-short-term-memory-lstm">Long Short Term Memory (LSTM)</h4>
+<p>Here is a very nicely written <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener noreferrer">blog</a> and where I referenced the below figure, but I’d take my own notes below:</p>
+
+<p>“LSTM is a special form of RNN that aimed to avoid the long-term dependency problem due to long sequence.”</p>
+
+\[\begin{align*}
+\color{Cerulean}\text{forget gate: } &amp; \color{Cerulean}\boxed{f^{(t)}  = \sigma(W_fh_{t−1} + U_fx_{t} + b_f)}\\
+&amp;\color{Cerulean}\textnormal{what content from t-1 is kept, $f^{(t)}$ is between 0 and 1; larger means "memory keeping"}\\
+\color{blue}\text{input gate: } &amp; \color{blue}\boxed{i^{(t)} = \sigma(W_fi_{t−1} + U_ix_{t} + b_i)}\\
+\color{darkblue}\text{output gate: } &amp; \color{darkblue}\boxed{o^{(t)} = \sigma(W_fo_{t−1} + U_ox_{t} + b_0)}\\
+\\
+\color{Lavender} \text{new cell content: } &amp; \color{Lavender}\boxed{\tilde{c}_{t} = \tanh(W_ch_{t-1} + U_cx_{t} + b_c)}\\
+\color{Purple} \text{new cell state: } &amp; \color{Purple}\boxed{c_{t} = f_{t} \cdot c_{t-1} + i_t \cdot \tilde{c}_{t}} \\
+&amp;\color{Purple}\textnormal{new and carryover contents to be written}\\
+\\
+&amp; h_t = o_t \cdot \tanh c_t\\
+&amp;\textnormal{new memory to be ouput}\\
+\end{align*}\]
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    <source media="(max-width: 480px)" srcset="/assets/img/lstm-480.webp"></source>
+    <source media="(max-width: 800px)" srcset="/assets/img/lstm-800.webp"></source>
+    <source media="(max-width: 1400px)" srcset="/assets/img/lstm-1400.webp"></source>
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/lstm.png" title="lstm image">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<p>Nice RNN resources:</p>
+<ul>
+  <li><a href="https://web.stanford.edu/class/cs224n/slides/cs224n-2022-lecture05-rnnlm.pdf" target="_blank" rel="noopener noreferrer">CS224N lecture 5</a></li>
+  <li><a href="https://web.stanford.edu/class/cs224n/slides/cs224n-2022-lecture06-fancy-rnn.pdf" target="_blank" rel="noopener noreferrer">CS224N lecture 6</a></li>
+  <li><a href="https://www.youtube.com/watch?v=AsNTP8Kwu80" target="_blank" rel="noopener noreferrer">StatQuest</a></li>
+</ul>
+
+
+  </article>
+
+</div>
 
     </div>
 

@@ -2,16 +2,16 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=https://achchg.github.io/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Chi-Hsuan  Chang | Page not found</title>
+    <title>Chi-Hsuan  Chang | Monte Carlo simulation</title>
     <meta name="author" content="Chi-Hsuan  Chang" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="Day 5" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://achchg.github.io/404.html">
+    <link rel="canonical" href="https://achchg.github.io/blog/2022/MCsimulation/">
     
     <!-- Dark Mode -->
     
@@ -71,7 +71,7 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
+              <li class="nav-item active">
                 <a class="nav-link" href="/blog/">blog</a>
               </li>
 
@@ -98,20 +98,118 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="https://achchg.github.io/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">Monte Carlo simulation</h1>
+    <p class="post-meta">September 27, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/review">
+          <i class="fas fa-hashtag fa-sm"></i> review</a>  
+          
+        ·  
+        <a href="/blog/category/probability">
+          <i class="fas fa-tag fa-sm"></i> probability</a>  
+          <a href="/blog/category/mc_simulation">
+          <i class="fas fa-tag fa-sm"></i> mc_simulation</a>  
+          
 
-          </article>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p>A <a href="https://users.aber.ac.uk/jcf12/teaching/montecarlo/" target="_blank" rel="noopener noreferrer">question</a> that I read today: “How to estimate \(\pi\)?”</p>
+
+<p>You’d find the thorough overview in the above link (and maybe a lot more blogs available online). I also gave my brain a little exercise today:</p>
+
+<h4 id="we-can-leverage-mc-simulation">We can leverage MC simulation!</h4>
+<p>This is a very straight-forward method that everyone might come up with. As shown below, we know that the relative ratio of the areas of a circle with radius (\(r\)) and a square of width (\(2r\)) can be expressed like:</p>
+
+\[\text{circle}:\text{square} = \pi R^2 : (2R)^2 = \pi : 4\]
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    <source media="(max-width: 480px)" srcset="/assets/img/square-480.webp"></source>
+    <source media="(max-width: 800px)" srcset="/assets/img/square-800.webp"></source>
+    <source media="(max-width: 1400px)" srcset="/assets/img/square-1400.webp"></source>
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/square.jpg" title="example image">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<p>Therefore, on the Cartesian coordinate, if we can sample N samples of (x, y) pairs uniformly from the square and to keep track of the common samples that also fell into the circle (threshold: \(x^2 + y^2 &lt; R^2\)), we can estimate \(\pi\) as:</p>
+
+<p>\(\hat{\pi} = 4 \times \frac{\text{# of common samples also appears in the circle}}{\text{# of samples in the square}}\). Here is part of my sample codes:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre></td>
+<td class="code"><pre> 
+<span class="n">R</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="k">def</span> <span class="nf">estimate_pi</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    Estimate pi from simulation from circle
+    N: Number of simulation/samples
+    R: radius of the circle
+    </span><span class="sh">"""</span>
+    
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">R</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">uniform</span><span class="p">(</span><span class="o">-</span><span class="n">R</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+    <span class="n">in_circle</span> <span class="o">=</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">y</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="n">circle_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">in_circle</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">R</span><span class="o">**</span><span class="mi">2</span><span class="p">:</span>
+            <span class="n">circle_count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">pi_hat</span> <span class="o">=</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">circle_count</span> <span class="o">/</span> <span class="n">N</span>
+    
+    <span class="k">return</span> <span class="n">pi_hat</span>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
+
+<p>Example notebook with above example can be found <a href="https://github.com/achchg/achchg.github.io/blob/master/jupyternb/2022-09-27-MCsimulation.ipynb" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+
+  </article>
+
+</div>
 
     </div>
 

@@ -2,16 +2,16 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=https://achchg.github.io/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Chi-Hsuan  Chang | Page not found</title>
+    <title>Chi-Hsuan  Chang | word2vec</title>
     <meta name="author" content="Chi-Hsuan  Chang" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="Day 2" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://achchg.github.io/404.html">
+    <link rel="canonical" href="https://achchg.github.io/blog/2022/word2vec/">
     
     <!-- Dark Mode -->
     
@@ -71,7 +71,7 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
+              <li class="nav-item active">
                 <a class="nav-link" href="/blog/">blog</a>
               </li>
 
@@ -98,20 +98,79 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="https://achchg.github.io/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">word2vec</h1>
+    <p class="post-meta">September 24, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/review">
+          <i class="fas fa-hashtag fa-sm"></i> review</a>  
+          
+        ·  
+        <a href="/blog/category/nlp">
+          <i class="fas fa-tag fa-sm"></i> nlp</a>  
+          
 
-          </article>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p>Word2vec was published by scientists at Google in 2013 (<a href="https://arxiv.org/pdf/1301.3781.pdf" target="_blank" rel="noopener noreferrer">Mikolov et al. 2013</a>) with the goal to come up with high-quality word vectors from high dimensional data. Two log-linear model archetectures (CBOW and Skip-gram) were proposed.</p>
+
+<h4 id="objective-function-of-word2vec">Objective function of word2vec</h4>
+<p>We are trying to compute how likely a context word (o) and a center word (c) are shown together. As each word can be seen as both a context and a center word, we use 2 vectors to describe each word w:</p>
+<ul>
+  <li>When the word w is a <code class="language-plaintext highlighter-rouge">center</code> word, the word vector of w is displayed as \(v_w\).</li>
+  <li>When the word w is a <code class="language-plaintext highlighter-rouge">context</code> word, the word vector of w is displayed as \(u_w\).</li>
+  <li>The dot product of the two vectors can help us evaluate how similar/close a center word \(v_{c}\) and a context word \(u_{o}\) are.</li>
+</ul>
+
+<h5 id="skip-gram-model">Skip-gram Model</h5>
+<p>We compute how likely a context word (o) will be within the defined window (length J) given a center word (c).  We can summarize such probability \(P(o|c)\) as \(P(w_{t+j}|w_t)\), when \(w_t\) is the center word and \(w_{t+j}\) is a context word.</p>
+
+<p>Softmax is a common method used:</p>
+
+\[P(o|c)=  \text{softmax}(u_o^Tv_c) = \frac{\exp(u_o^Tv_c)}{\sum_{w \in V}\exp(u_w^Tv_c)}\]
+
+<p>As we have T words from our corpus, the data likelihood of predict context words within a fixed window m given a center word \(w_t\) can be:</p>
+
+\[L(\theta)=  \Pi_{t=1}^T\Pi_{-m \leq j \leq m, j \neq 0} P(w_{t+j}|w_t)\]
+
+\[\mathrm{\ell}(\theta)=  \Sigma_{t=1}^T \Sigma_{-m \leq j \leq m, j \neq 0} \log P(w_{t+j}|w_t)\]
+
+<p>Meaning that the objective function is:</p>
+
+\[\mathrm{J}(\theta) =  -\frac{1}{|V|}\Sigma_{w=1}^{|V|} \Sigma_{-m \leq j \leq m, j \neq 0} \frac{\exp(u_o^Tv_c)}{\sum_{w \in V}\exp(u_w^Tv_c)}= -u_o^Tv_c + \log \Sigma_{w=1}^{|V|}\exp(u_w^Tv_c)\]
+
+\[\frac{\partial}{\partial v_c}\mathrm{J}(\theta) = -u_o + \frac{\Sigma_{w=1}^{|V|}\exp(u_w^Tv_c) u_w}{\Sigma_{w=1}^{|V|}\exp(u_w^Tv_c)} = -u_o + \Sigma_{w=1}^{|V|}\frac{\exp(u_w^Tv_c)}{\Sigma_{w=1}^{|V|}\exp(u_w^Tv_c)}u_w = \boxed{-u_o + \Sigma_{w=1}^{|V|} P(w|c) u_w}\]
+
+\[\frac{\partial}{\partial u_o}\mathrm{J}(\theta) = -v_c + \frac{\Sigma_{w=1}^{|V|}\exp(u_w^Tv_c) v_c}{\Sigma_{w=1}^{|V|}\exp(u_w^Tv_c)} = -v_c + \Sigma_{w=1}^{|V|}\frac{\exp(u_w^Tv_c)}{\Sigma_{w=1}^{|V|}\exp(u_w^Tv_c)}v_c = \boxed{-v_c + \Sigma_{w=1}^{|V|} P(w|c) v_c}\]
+
+<p>And our goal is to find the set of \(\theta\) that minimize the cost function, and we can leverage stochastic gradient descent.</p>
+
+<h5 id="continuous-bag-of-words-cbow-model">Continuous Bag of Words (CBOW) Model</h5>
+<p>We compute how likely a center word (c) appears together given all context words (v).  We can summarize such probability \(P(c|o)\) as \(P(u_c|\vec{v})\).</p>
+
+<p>Similarly, with softmax:</p>
+
+\[P(c|o)=  \text{softmax}(u_c^T\vec{v}) = \frac{\exp(u_c^T\vec{v})}{\sum_{w \in V}\exp(u_w^T\vec{v})}\]
+
+<p>Meaning that the objective function is:</p>
+
+\[\mathrm{J}(\theta)=  -\frac{1}{|V|}\Sigma_{w=1}^{|V|} \Sigma_{-m \leq j \leq m, j \neq 0} \log \frac{\exp(u_c^T\vec{v})}{\sum_{w \in V}\exp(u_w^T\vec{v})} = -u_c^T\vec{v} + \log \Sigma_{w=1}^{|V|}\exp(u_w^T\vec{v})\]
+
+<p>Formal notes from CS224N can be referenced <a href="https://web.stanford.edu/class/cs224n/readings/cs224n-2019-notes01-wordvecs1.pdf" target="_blank" rel="noopener noreferrer">here</a>, <a href="https://web.stanford.edu/class/cs224n/slides/cs224n-2022-lecture01-wordvecs1.pdf" target="_blank" rel="noopener noreferrer">lecture 1</a>, <a href="https://web.stanford.edu/class/cs224n/slides/cs224n-2022-lecture02-wordvecs2.pdf" target="_blank" rel="noopener noreferrer">lecture 2</a>.</p>
+
+<p>I’ll continue on some notebook example tomorrow…</p>
+
+  </article>
+
+</div>
 
     </div>
 

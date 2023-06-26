@@ -2,16 +2,16 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=https://achchg.github.io/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Chi-Hsuan  Chang | Page not found</title>
+    <title>Chi-Hsuan  Chang | word2vec code example</title>
     <meta name="author" content="Chi-Hsuan  Chang" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="Day 3" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://achchg.github.io/404.html">
+    <link rel="canonical" href="https://achchg.github.io/blog/2022/word2vec_2/">
     
     <!-- Dark Mode -->
     
@@ -71,7 +71,7 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
+              <li class="nav-item active">
                 <a class="nav-link" href="/blog/">blog</a>
               </li>
 
@@ -98,20 +98,79 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="https://achchg.github.io/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">word2vec code example</h1>
+    <p class="post-meta">September 25, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/review">
+          <i class="fas fa-hashtag fa-sm"></i> review</a>  
+          
+        ·  
+        <a href="/blog/category/nlp">
+          <i class="fas fa-tag fa-sm"></i> nlp</a>  
+          
 
-          </article>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p>Continuing from yesterday’s post, documenting an example word2vec notebook using <a href="https://radimrehurek.com/gensim/models/word2vec.html" target="_blank" rel="noopener noreferrer">Gensim</a>. Here, I went for a super basic example with the following steps:</p>
+<ul>
+  <li>Queried the keyword <code class="language-plaintext highlighter-rouge">Neonicotinoids</code> from <code class="language-plaintext highlighter-rouge">pymed</code>, a python-based PubMed API. Set the maximum query size as 5000</li>
+  <li>Used the lower-cased keywords of the articles as the sentence for training word2vec word embeddings</li>
+  <li>Built both a CBOW and a Skip-gram model and checked how the word vectors differed for one single word vector (<code class="language-plaintext highlighter-rouge">imidacloprid</code>)</li>
+  <li>Printed out the top 10 similar word vector to <code class="language-plaintext highlighter-rouge">imidacloprid</code> under both methods</li>
+</ul>
+
+<h5 id="cbow---most-similar-word-vectors-to-imidacloprid">CBOW - most similar word vectors to imidacloprid</h5>
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    <source media="(max-width: 480px)" srcset="/assets/img/cbow-480.webp"></source>
+    <source media="(max-width: 800px)" srcset="/assets/img/cbow-800.webp"></source>
+    <source media="(max-width: 1400px)" srcset="/assets/img/cbow-1400.webp"></source>
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/cbow.png" title="example image">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<h5 id="skip-gram---most-similar-word-vectors-to-imidacloprid">Skip-gram - most similar word vectors to imidacloprid</h5>
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    <source media="(max-width: 480px)" srcset="/assets/img/skipgram-480.webp"></source>
+    <source media="(max-width: 800px)" srcset="/assets/img/skipgram-800.webp"></source>
+    <source media="(max-width: 1400px)" srcset="/assets/img/skipgram-1400.webp"></source>
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/skipgram.png" title="example image">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<p>Detail example and citation of part of the example codes can be found in my notebook <a href="https://github.com/achchg/achchg.github.io/blob/master/jupyternb/2022-09-25-word2vec.ipynb" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+  </article>
+
+</div>
 
     </div>
 

@@ -2,16 +2,16 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=https://achchg.github.io/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Chi-Hsuan  Chang | Page not found</title>
+    <title>Chi-Hsuan  Chang | ResNets</title>
     <meta name="author" content="Chi-Hsuan  Chang" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="Day 18" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://achchg.github.io/404.html">
+    <link rel="canonical" href="https://achchg.github.io/blog/2022/ResNet/">
     
     <!-- Dark Mode -->
     
@@ -71,7 +71,7 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
+              <li class="nav-item active">
                 <a class="nav-link" href="/blog/">blog</a>
               </li>
 
@@ -98,20 +98,80 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="https://achchg.github.io/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">ResNets</h1>
+    <p class="post-meta">October 10, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/learning">
+          <i class="fas fa-hashtag fa-sm"></i> learning</a>  
+          
+        ·  
+        <a href="/blog/category/dl">
+          <i class="fas fa-tag fa-sm"></i> dl</a>  
+          <a href="/blog/category/image">
+          <i class="fas fa-tag fa-sm"></i> image</a>  
+          
 
-          </article>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p>I recently found a paper regarding time-series forecasting: <a href="https://arxiv.org/pdf/1905.10437.pdf" target="_blank" rel="noopener noreferrer">N-BEATS</a> and found myself missing a few pre-requsite concept. One of them was the use of classic residual network algorithm, first proposed as <a href="https://arxiv.org/pdf/1512.03385.pdf" target="_blank" rel="noopener noreferrer">ResNets</a>. Here are some of my learning notes:</p>
+
+<h4 id="resnets">ResNets</h4>
+<p>A residual neural network (<a href="https://en.wikipedia.org/wiki/Residual_neural_network" target="_blank" rel="noopener noreferrer">ResNet</a>) is a deep neural netword architecture, which uses skip connections/shortcuts to jump over some layers (usually 2-3 layer skips) to avoid the problems of:</p>
+<ul>
+  <li>1) <strong>vanishing/exploding gradients</strong>: gradients becoming too small or big when increasing layers, and</li>
+  <li>2) <strong>degradation</strong>: deeper NN has larger training/testing error.</li>
+</ul>
+
+<p>ResNets contain typical NN characteristics of adding nonlinearities (ReLU) and batch normalization in between the layers. Note that the residual (\(F(x)\)) of a residual block will be add to an identity matrix (\(x\)) before passing on to the ReLU activation function.</p>
+
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    <source media="(max-width: 480px)" srcset="/assets/img/residual_block-480.webp"></source>
+    <source media="(max-width: 800px)" srcset="/assets/img/residual_block-800.webp"></source>
+    <source media="(max-width: 1400px)" srcset="/assets/img/residual_block-1400.webp"></source>
+    <!-- Fallback to the original file -->
+    <img src="/assets/img/residual_block.png" title="example image">
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<p>Why it solves the 2 problems above?</p>
+<ul>
+  <li>If considering a NN above, then \(F(x) + x = a^{[2]} = g(z^{[2]} + x) = g(w^{[2]} a^{[1]} + b^{[2]} + x)\).</li>
+  <li>To solve the above equation by minimizing \(F(x)\) as 0, we’d get \(a^{[2]} = x \approx g(x)\), where we expect \(w^{[2]} \approx 0\) and \(b^{[2]} \approx 0\) so as \(w^{[l]}\) and \(b^{[l]}\) at earlier layers (l).</li>
+</ul>
+
+<p>Example pytorch resource for ResNet18 is <a href="https://pytorch.org/hub/pytorch_vision_resnet/" target="_blank" rel="noopener noreferrer">here</a></p>
+
+<p>Original ResNets paper is <a href="https://arxiv.org/pdf/1512.03385.pdf" target="_blank" rel="noopener noreferrer">here</a>.</p>
+
+<p>Helpful videos &amp; blogs:</p>
+<ul>
+  <li>
+<a href="https://www.youtube.com/watch?v=ZILIbUvp5lk" target="_blank" rel="noopener noreferrer">ResNets</a> and <a href="https://www.youtube.com/watch?v=RYth6EbBUqM&amp;list=PLkDaE6sCZn6Gl29AoE31iwdVwSG-KnDzF&amp;index=15" target="_blank" rel="noopener noreferrer">Why ResNets work</a> by DeepLearningAI</li>
+  <li><a href="https://towardsdatascience.com/an-overview-of-resnet-and-its-variants-5281e2f56035" target="_blank" rel="noopener noreferrer">An Overview of ResNet and its Variants</a></li>
+</ul>
+
+
+  </article>
+
+</div>
 
     </div>
 

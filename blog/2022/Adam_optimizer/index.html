@@ -2,16 +2,16 @@
 <html lang="en">
 
   <!-- Head -->
-  <head><meta http-equiv="refresh" content="3; url=https://achchg.github.io/" />    <!-- Metadata, OpenGraph and Schema.org -->
+  <head>    <!-- Metadata, OpenGraph and Schema.org -->
     
 
     <!-- Standard metadata -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Chi-Hsuan  Chang | Page not found</title>
+    <title>Chi-Hsuan  Chang | Adam (adaptive moment estimation) optimizer</title>
     <meta name="author" content="Chi-Hsuan  Chang" />
-    <meta name="description" content="Looks like there has been a mistake. Nothing exists here." />
+    <meta name="description" content="Day 12" />
     <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website" />
 
 
@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://achchg.github.io/404.html">
+    <link rel="canonical" href="https://achchg.github.io/blog/2022/Adam_optimizer/">
     
     <!-- Dark Mode -->
     
@@ -71,7 +71,7 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
+              <li class="nav-item active">
                 <a class="nav-link" href="/blog/">blog</a>
               </li>
 
@@ -98,20 +98,75 @@
 
     <!-- Content -->
     <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+      <!-- _layouts/post.html -->
 
-          <header class="post-header">
-            <h1 class="post-title">Page not found</h1>
-            <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-          </header>
+<div class="post">
 
-          <article>
-            <p>You will be redirected to the main page within 3 seconds. If not redirected, please click <a href="https://achchg.github.io/">here</a>.</p>
+  <header class="post-header">
+    <h1 class="post-title">Adam (adaptive moment estimation) optimizer</h1>
+    <p class="post-meta">October 4, 2022</p>
+    <p class="post-tags">
+      <a href="/blog/2022"> <i class="fas fa-calendar fa-sm"></i> 2022 </a>
+        ·  
+        <a href="/blog/tag/review">
+          <i class="fas fa-hashtag fa-sm"></i> review</a>  
+          
+        ·  
+        <a href="/blog/category/optimization">
+          <i class="fas fa-tag fa-sm"></i> optimization</a>  
+          <a href="/blog/category/gradient">
+          <i class="fas fa-tag fa-sm"></i> gradient</a>  
+          
 
-          </article>
+    </p>
+  </header>
 
-        </div>
+  <article class="post-content">
+    <p>Reviewing <a href="https://web.stanford.edu/class/cs224n/assignments/a3_handout.pdf" target="_blank" rel="noopener noreferrer">week 3 assignment</a> of NLP with deep learning brought Adam optimization algorithm back to my attention. Here I’d summarize what I did in my homework 3 for my future reference:</p>
+
+<h4 id="adam-optimizer">Adam optimizer</h4>
+<p>From standard SGD, we would use a mini-batch (e.g. single sample) of data in the update rule below for updating the \(J(\theta)\):</p>
+
+\[\theta := \theta - \alpha \nabla_\theta J(\theta)\]
+
+<p>where \(\alpha\) is the learning rate and \(\nabla_\theta J(\theta)\) represent the partial derivatives of the cost function wrt \(\theta\).</p>
+
+<p>Adam optimization, in addition, takes 2 additional steps beyond SGD:</p>
+
+<h5 id="update-biased-first-order-moment-estimate">Update biased first order moment estimate</h5>
+
+\[\begin{align*}
+m &amp; := \beta_1 m + (1 − \beta_1)\nabla_\theta J(\theta)\\
+\theta &amp; := \theta - \alpha m
+\end{align*}\]
+
+<p>As \(m\) is set as a weighted average of the rolling gradient average of the <strong>previous</strong> iterations and the gradient of the <strong>current</strong> iteration, we can expect the <strong>momentum</strong> step making the gradient descent update smoother than that of the SGD (which only consider the <strong>current</strong> iteration). The current gradient (\(\nabla_{\theta} J(\theta)\)) will be weighted larger than the individual gradients after k (\(\frac{\beta_1}{1-\beta_1}\)) iterations, as the individual previous gradients has a weight of \(\frac{\beta_1}{k}\) (where k = num of past iterations).</p>
+
+<h5 id="update-biased-second-order-raw-moment-estimate">Update biased second order raw moment estimate</h5>
+
+\[\begin{align*}
+v &amp; := \beta_2 v + (1 − \beta_2)(\nabla_\theta J(\theta) \odot \nabla_\theta J(\theta))\\
+\theta &amp; := \theta - \alpha \frac{m}{\sqrt{v}}
+\end{align*}\]
+
+<p>As \(m\) is divided by the \(\sqrt{v}\) (the gradient of Adam), the gradients that have smaller gradient magnitude (\(v\)) will get larger updates. As \(v\) is derived from squared of \(\nabla_{\theta} J(\theta)\), \(v\) is usually associated with smaller gradient. This might help further smoothing out the gradient descent from the <strong>momentum</strong> step, by giving larger weights to the smaller gradients when the SGD update does not guarantee continuous descending in the gradients.</p>
+
+<h5 id="note-method-of-moment">Note: Method of moment</h5>
+<p><a href="https://en.wikipedia.org/wiki/Method_of_moments_(statistics)" target="_blank" rel="noopener noreferrer">Method of moment</a> in statistics implies the following:</p>
+
+<p>The \(k^{th}\) moment of a random variable X with its pdf, \(f(x)\) can be expressed as:</p>
+
+\[E(X^k) = \int_X x^k f(x) dx\]
+
+<p>Therefore, the first moment of X is \(E(X)\), which is the mean of the distribution; and the second moment of X is \(E(X^2)\), which is the sum of mean squared and the variance (\(\text{Var}(X) = E(X^2) - E(X)^2\)).
+<!-- 
+Example notebook with above example can be found [here](https://github.com/achchg/achchg.github.io/blob/master/jupyternb/2022-09-29-Stochastic_gradient_descent.ipynb). --></p>
+
+<p>Original Adam paper is <a href="https://arxiv.org/pdf/1412.6980.pdf" target="_blank" rel="noopener noreferrer">here</a>; Helpful <a href="https://gregorygundersen.com/blog/2020/04/11/moments/" target="_blank" rel="noopener noreferrer">documentation</a> of moment statistics.</p>
+
+  </article>
+
+</div>
 
     </div>
 
